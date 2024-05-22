@@ -3,15 +3,10 @@ package com.facebook.view;
 import java.util.Scanner;
 
 import com.facebook.controller.FacebookController;
+import com.facebook.controller.FacebookControllerInterface;
 
 public class FacebookView {
-	FacebookView(){
-		
-	}
-	FacebookView(int i){
-		
-	}
-
+	
 	public static void main(String[] args) {
 		
 		String ss="y";
@@ -36,7 +31,7 @@ public class FacebookView {
 		
 		int choice=sc.nextInt();
 		
-		FacebookController f=new FacebookController();
+		FacebookControllerInterface f=new FacebookController();
 		
 		switch(choice) {
 		case 1: f.createProfile();

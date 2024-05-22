@@ -3,8 +3,10 @@ package com.facebook.controller;
 import java.util.Scanner;
 
 import com.facebook.entity.FacebookUser;
+import com.facebook.service.FacebookService;
+import com.facebook.service.FacebookServiceInterface;
 
-public class FacebookController {
+public class FacebookController implements FacebookControllerInterface{
 	public void createProfile() {
 		
 		Scanner sc=new Scanner(System.in);
@@ -26,6 +28,16 @@ public class FacebookController {
 		f1.setEmail(email);
 		f1.setAddress(address);
 		
+		
+		FacebookServiceInterface fs=new FacebookService();
+		
+		int i=fs.createProfileService(f1);
+		if(i>0) {
+			System.out.println("Registration success");
+		}
+		else {
+			System.out.println("registration fail");
+		}
 		
 		
 	}
@@ -50,8 +62,12 @@ public class FacebookController {
 		System.out.println("profile logied in");
 	}
 
+	@Override
 	public void viewAllProfile() {
-		System.out.println("all profile viewed");
+		// TODO Auto-generated method stub
+		
 	}
+
+	
 
 }
