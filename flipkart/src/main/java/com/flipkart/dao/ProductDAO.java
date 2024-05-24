@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.flipkart.entity.Product;
@@ -21,12 +22,12 @@ public class ProductDAO implements ProductDAOInterface {
 		System.out.println(number);
 
 		String p_id = a + number;
-
-		try {
+		// con=null;
+		try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/happiestmindmay", "root",
+				"rajesh");
+) {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/happiestmindmay", "root",
-					"rajesh");
-
+			
 			PreparedStatement ps = con.prepareStatement("insert into flipkart_product values(?,?,?,?)");
 
 			ps.setString(1, p.getProduct_name());
@@ -35,9 +36,21 @@ public class ProductDAO implements ProductDAOInterface {
 			ps.setString(4, p_id);
 
 			result = ps.executeUpdate();
-		} catch (Exception e) {
+			con.close();
+		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
+		/*catch (SQLException e) {
+			e.printStackTrace();
+		}*/
+		/*finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}*/
 		return result;
 	}
 

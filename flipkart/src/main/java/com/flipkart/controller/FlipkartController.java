@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.flipkart.entity.Product;
+import com.flipkart.exception.HighPriceException;
 import com.flipkart.service.ProductService;
 import com.flipkart.service.ProductServiceInterface;
 
@@ -11,6 +12,7 @@ public class FlipkartController implements FlipkartControllerInterface {
 
 	@Override
 	public void createProductController() {
+		try {
 		Scanner input=new Scanner(System.in);
 		
 		System.out.println("Enter Product Name");
@@ -18,6 +20,10 @@ public class FlipkartController implements FlipkartControllerInterface {
 		
 		System.out.println("Enter Product Price");
 		float product_price=input.nextFloat();
+		
+		if(product_price>100.56) {
+			throw new HighPriceException();
+		}
 		
 		System.out.println("Enter Product Specification");
 		String product_specification=input.next();
@@ -32,6 +38,10 @@ public class FlipkartController implements FlipkartControllerInterface {
 		
 		if(i>0) {
 			System.out.println("Product Added in Database");
+		}
+		}
+		catch(HighPriceException e) {
+			System.out.println(e);
 		}
 		
 
